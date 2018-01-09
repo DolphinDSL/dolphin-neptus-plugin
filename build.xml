@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Neptus Plugin" default="jar">
-	
+
     <loadproperties srcfile="plugin.properties"/>
-	
+
 	<path id="neptus.libs">
 		<fileset dir="${NeptusDir}/lib" casesensitive="false">
 			<include name="**/*.jar" />
@@ -12,25 +12,34 @@
 			<include name="neptus.jar"/>
 		</fileset>
 	</path>
-	
+
 	<path id="neptus.run">
 		<path refid="neptus.libs"/>
 		<fileset dir="${NeptusDir}/plugins" casesensitive="false">
 			<include name="**/*.jar"/>
 			<include name="**/*.zip" />
-		</fileset>		
+		</fileset>
 	</path>
-	
+
+	<path id="build.classpath">
+  <fileset dir="${PluginSources}/lib">
+    <include name="**/*.jar"/>
+    <include name="**/*.zip"/>
+  </fileset>
+</path>
+
 	<target name="compile">
 		<delete dir="build"/>
 		<mkdir dir="build"/>
-		<javac classpathref="neptus.libs" 
-			srcdir="${PluginSources}" 
-			destdir="build" 
+		<javac classpathref="neptus.libs"
+			srcdir="${PluginSources}"
+			destdir="build"
 			includes="**/*.java"
-		/>		
+		>
+		<classpath refid="build.classpath"/>
+	</javac>
 	</target>
-	
+
 	<target name="createLstFile">
 		<script language="javascript">
 			arr = project.getProperty('PluginClasses').split(',');
@@ -45,17 +54,17 @@
 			out.close();
 		</script>
 	</target>
-	
+
 	<target name="jar" depends="compile, createLstFile">
 		<jar destfile="${PluginName}.jar" basedir="build" includes="**/*">
 		</jar>
 	</target>
-	
+
 	<target name="deploy" depends="jar">
 		<description>Generate jar and deploy it to the Neptus plugins dir.</description>
-		<copy tofile="${NeptusDir}/plugins/${JarFileName}" file="${JarFileName}"/>
+		<copy tofile="${NeptusDir}/plugins/${PluginName}.jar" file="${PluginName}.jar" />
 	</target>
-	
+
 	<target name="undeploy">
 		<description>Remove previously deployed jar from Neptus plugins dir.</description>
 		<delete file="${NeptusDir}/plugins/${JarFileName}"/>
@@ -70,15 +79,15 @@
 	<target name="test" depends="deploy">
 		<java fork="true" dir="${NeptusDir}" classpathref="neptus.run" classname="pt.lsts.neptus.loader.NeptusMain"/>
 	</target>
-	
+
 	<target name="GenerateEclipseProject">
 		<script language="javascript"><![CDATA[
 			importPackage(java.io);
-			
+
 			pluginName = project.getProperty('PluginName');
 			pluginSrc = project.getProperty('PluginSources');
 			neptusSrc = project.getProperty('NeptusDir');
-			
+
 			// Create .project file
 			var out = new BufferedWriter(new FileWriter(".project"));
 			out.write('<?xml version="1.0" encoding="UTF-8"?>\n');
@@ -99,7 +108,7 @@
 			out.write('	</natures>\n');
 			out.write('</projectDescription>\n');
 			out.close();
-			
+
 			// Create .classpath file
 			out = new BufferedWriter(new FileWriter(".classpath"));
 			out.write('<?xml version="1.0" encoding="UTF-8"?>\n');
@@ -107,15 +116,15 @@
 			out.write('	<classpathentry kind="src" path="'+pluginSrc+'"/>\n');
 			out.write('	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>\n');
 			out.write('	<classpathentry kind="lib" path="'+neptusSrc+'/bin/neptus.jar"/>\n');
-			
+
 			var libDirs = [new File(neptusSrc+'/lib')];
 			var tmp = new File(neptusSrc+'/lib').listFiles();
-			
+
 			for (f in tmp) {
 				if (tmp[f].isDirectory())
 					libDirs.push(tmp[f]);
 			}
-			
+
 			for (dir in libDirs) {
 				var files = libDirs[dir].listFiles();
 				for (f in files) {
