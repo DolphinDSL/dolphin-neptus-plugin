@@ -49,7 +49,7 @@
 			pluginSrc = project.getProperty('PluginSources');
 			var fwriter = java.io.FileWriter;
 			var writer = java.io.BufferedWriter;
-			var out = new writer(new fwriter(pluginSrc+'/plugins.lst'));
+			var out = new writer(new fwriter('build/plugins.lst'));
 			out.write("#Plug-in classes (extracted from plugin.properties):\n");
 			for (k in arr) {
 				out.write(arr[k].trim()+"\n");
@@ -78,6 +78,8 @@
 
 		<jar destfile="${PluginName}.jar" basedir="build" includes="**/*">			
 		</jar>
+
+
 	</target>
 
 	<target name="deploy" depends="jar">
