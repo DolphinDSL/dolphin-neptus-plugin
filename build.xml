@@ -3,6 +3,8 @@
 
     <loadproperties srcfile="plugin.properties"/>
 
+	<property name="resources.copied" value="**/*.xml,**/*.properties,**/*.res,images/**/*.*,models/**/*.*,schemas/**/*.xsd,**/*.png,**/*.jpg,**/*.gif"/>
+
 	<path id="neptus.libs">
 		<fileset dir="${NeptusDir}/lib" casesensitive="false">
 			<include name="**/*.jar" />
@@ -75,6 +77,11 @@
 	            }
 			}
       	</script>
+
+      	<copy todir="build" overwrite="true">
+			<fileset dir="${PluginSources}" excludes="${exclude-defaults},**/Thumbs.db,**/thumbs.db"
+				includes="${resources.copied}" />
+		</copy>
 
 		<jar destfile="${PluginName}.jar" basedir="build" includes="**/*">			
 		</jar>
