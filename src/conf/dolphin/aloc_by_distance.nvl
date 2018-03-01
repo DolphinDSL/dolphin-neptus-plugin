@@ -1,0 +1,8 @@
+uuvs = pick{
+	type 'UUV'
+	n = ask 'How many UUVs?'
+	count n
+}
+task1 = imcPlan 'plan1'
+task2 = imcPlan 'plan2'
+execute uuvs: task1

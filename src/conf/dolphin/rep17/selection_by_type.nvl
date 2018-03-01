@@ -1,0 +1,13 @@
+//38.43461666666666 -8.861177777777778 : Comporta Op Area location
+
+uuv = pick {
+  type   'UUV'
+}
+
+//setConnectionTimeout  20.0 //by default
+
+task = imcPlan 'plan1'
+
+message "Selected $uuv"
+
+execute uuv: task

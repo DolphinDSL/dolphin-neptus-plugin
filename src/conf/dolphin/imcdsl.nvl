@@ -1,0 +1,21 @@
+v = pick {
+	type 'UUV'
+	payload 'Camera'
+}
+
+t = imcPlan {
+// Id
+planName 'waterSurvey'
+// Set reference speed, depth, and location
+speed 1.5, Speed.Units.METERS_PS
+z 0.0, Z.Units.DEPTH
+locate Location.APDL
+// Goto maneuver, activating the camera payload
+move 30,-125
+goTo payload:[[name: 'Camera']]
+// Loiter maneuver
+move (-30,-50)
+loiter radius:100
+}
+
+execute t[v]

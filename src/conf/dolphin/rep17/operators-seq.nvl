@@ -1,0 +1,10 @@
+//38.43461666666666 -8.861177777777778 : Comporta Op Area location
+
+v1 = pick { id 'lauv-noptilus-2' }
+//v2 = pick { id 'lauv-noptilus-2' }
+
+ setConnectionTimeout  30.0
+
+execute  imcPlan('survey4') >> imcPlan('survey5')  
+
+            

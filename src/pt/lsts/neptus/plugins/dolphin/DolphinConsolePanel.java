@@ -81,7 +81,7 @@ import pt.lsts.neptus.util.ImageUtils;
 /**
  * Neptus Console for Dolphin language (GUI to edit and run programs)
  */
-@PluginDescription(name = "Dolphin Runtime Feature", author = "Keila Lima",icon="pt/lsts/neptus/plugins/dolphin/images/dolphin.png")
+@PluginDescription(name = "Dolphin Runtime Feature",description = "Task orchestration language for autonomous vehicle networks",icon="pt/lsts/neptus/plugins/dolphin/images/dolphin.png")
 @Popup(pos = Popup.POSITION.BOTTOM_RIGHT, width=600, height=500)
 @SuppressWarnings("serial")
 public class DolphinConsolePanel extends ConsolePanel {

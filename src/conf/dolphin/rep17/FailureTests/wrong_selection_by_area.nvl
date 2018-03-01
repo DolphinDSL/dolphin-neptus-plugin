@@ -1,0 +1,16 @@
+// Pick an UUV
+ComportaOpArea = location 38.425711111111106, -8.852072222222223
+v = pick { 
+  type 'UUV'
+  region ComportaOpArea, 2.meters
+}
+
+/*
+task = imcPlan {
+
+	goTo location: ComportaOpArea
+	skeeping
+	
+	}
+execute v: task
+*/

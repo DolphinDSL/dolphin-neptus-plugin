@@ -59,9 +59,10 @@ import pt.lsts.dolphin.runtime.NodeSet;
 import pt.lsts.dolphin.runtime.Platform;
 import pt.lsts.dolphin.runtime.tasks.PlatformTask;
 
+
 /**
  * Singleton Platform instance for Dolphin Language Runtime
- * @author lsts
+ * @author keila
  *
  */
 public enum NeptusPlatform implements Platform {
@@ -192,6 +193,7 @@ public enum NeptusPlatform implements Platform {
         
         if(consolePanel!=null){
             PlanType plan = IMCUtils.parsePlanSpecification(consolePanel.getConsole().getMission(),ps);
+            plan.setVehicle(consolePanel.getMainVehicleId()); 
             consolePanel.getConsole().getMission().addPlan(plan);
             consolePanel.getConsole().getMission().save(true);
             consolePanel.getConsole().updateMissionListeners();
@@ -249,7 +251,7 @@ public enum NeptusPlatform implements Platform {
     public void customizeGroovyCompilation(CompilerConfiguration cc) {
         displayMessage("Customizing compilation for Neptus runtime ...");
         ImportCustomizer ic = new ImportCustomizer();
-        ic.addStarImports("pt.lsts.imc.groovy.dsl");
+        ic.addStarImports("pt.lsts.imc.dsl");
         for (String msg : IMCDefinition.getInstance().getConcreteMessages()) {
           ic.addImports("pt.lsts.imc." + msg);
         }

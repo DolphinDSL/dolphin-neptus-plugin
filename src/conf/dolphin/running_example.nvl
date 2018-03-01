@@ -1,0 +1,26 @@
+//Vehicle's Selection
+n = ask 'How many UUVs?'
+survey_uuvs    = pick { type 'UUV' 
+                        count  n-1 
+                        payload 'Sidescan','Multibeam'
+                       }
+gateway = pick { type 'UUV'
+                  id 'lauv-noptilus-2'  }
+setCommunicationTimeout 30.minutes
+
+//APDL coordinates in degrees
+apdl = new Position(35.degrees,-8.degrees,0)
+
+//Tasks:
+survey1 = imcPlan('survey1') >>  action { post ready:1 }
+survey2 = imcPlan('survey2') >>  action { post ready:2 }
+
+stay_in_the_way  = imcPlan {
+                      planName 'stayStill'
+                      locate   Location.APDL//apdl as Location
+                      move (-500,-500) //Translate 500m south and west
+                      skeeping()
+
+                   }
+execute survey_uuvs: survey1 | survey2 ,
+        gateway:     waitFor {(poll ready:1) && (poll ready:2)}then stay_in_the_way

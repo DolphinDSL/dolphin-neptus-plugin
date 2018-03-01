@@ -1,0 +1,27 @@
+//38.43461666666666 -8.861177777777778 : Comporta Op Area location
+master = pick { type 'UUV'
+                id 'lauv-xplore-1'
+              }
+slave1 = pick { type 'UUV' 
+                id 'lauv-noptilus-1'
+              }
+slave2 = pick { type 'UUV' 
+                id 'lauv-noptilus-2'
+              }
+ 
+setConnectionTimeout  7.minutes
+ 
+execute master : 
+             imcPlan('plan1') >> 
+             action { post x:1 } >>
+             imcPlan('plan2') >> 
+             action { post x:2 },
+        slave1:
+             condition { consume x: 1} >>
+             imcPlan('survey6'),
+        slave2: 
+             condition { consume x: 2} >>
+             imcPlan('survey7')
+
+
+            

@@ -1,0 +1,32 @@
+//38.43461666666666 -8.861177777777778 : Comporta Op Area location
+master = pick { type 'UUV' }
+slave1 = pick { type 'UUV' }
+slave2 = pick { type 'UUV' }
+
+d = 300.meters //ask?
+
+setConnectionTimeout  120.0 
+ 
+execute master : 
+             imcPlan('hangAround'),
+        slave1:
+             condition { 
+                p1 = position(slave1)
+                pm = position(master)
+                d1 = pm.distanceTo(p1)
+                message "d1=$d1"
+                d1 < d	
+             } >>
+             imcPlan('survey4'),
+        slave2: 
+              condition { 
+                p2 = position(slave1)
+                pm = position(master)
+                d2 = pm.distanceTo(p2)
+                message "d2=$d2"
+                d2 < d	
+             } >>
+             imcPlan('survey5')
+
+
+            

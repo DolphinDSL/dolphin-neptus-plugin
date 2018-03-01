@@ -85,7 +85,11 @@
 
 		<jar destfile="${PluginName}.jar" basedir="build" includes="**/*">			
 		</jar>
-
+	<copy todir="${NeptusDir}/conf" overwrite="true">
+		<fileset dir="${PluginSources}/conf">
+			<include name="**/*"/>
+		</fileset>
+	</copy>
 
 	</target>
 
