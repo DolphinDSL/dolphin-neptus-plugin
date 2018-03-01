@@ -1,14 +1,13 @@
-﻿#Neptus Plug-in skeleton
-----
-##Description
-This project can be forked in other to create Neptus-based plug-ins
+﻿# Dolphin Neptus plugin
 
-###Requirements
+
+## Requirements
 * Java Development Kit (JDK) 8
 * Neptus
 * Apache ANT  
 
-###Development Guide
+## Compilation instructions
+
 * Compile / Install Neptus in your machine.
 * Edit the file named **plugin.properties** with the settings for your plug-in.
 * Optionally generate an eclipse project by issuing the command:
