@@ -1,0 +1,6 @@
+
+ n = ask 'How many vehicles?' 
+ m = ask 'xpto'
+message "$n $m"
+
+ 

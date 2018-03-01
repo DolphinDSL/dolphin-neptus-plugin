@@ -1,0 +1,13 @@
+//execute idle().during(20.seconds)
+uuv1 = pick {
+	type 'UUV';
+	}
+uuv2 = pick {
+	type 'UUV';
+	}	
+t1 = task 'plan1'
+t2 = task 'plan2'
+execute (uuv1:t1)
+
+
+

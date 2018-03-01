@@ -1,0 +1,4 @@
+vehicle = pick {
+	payload 'DVL'
+}
+

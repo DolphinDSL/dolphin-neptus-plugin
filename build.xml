@@ -3,6 +3,8 @@
 
     <loadproperties srcfile="plugin.properties"/>
 
+	<property name="resources.copied" value="**/*.xml,**/*.properties,**/*.res,images/**/*.*,models/**/*.*,schemas/**/*.xsd,**/*.png,**/*.jpg,**/*.gif"/>
+
 	<path id="neptus.libs">
 		<fileset dir="${NeptusDir}/lib" casesensitive="false">
 			<include name="**/*.jar" />
@@ -28,6 +30,8 @@
   </fileset>
 </path>
 
+<property name="plugin.libs" refid="build.classpath" />
+
 	<target name="compile">
 		<delete dir="build"/>
 		<mkdir dir="build"/>
@@ -42,11 +46,12 @@
 
 	<target name="createLstFile">
 		<script language="javascript">
+			load("nashorn:mozilla_compat.js");
 			arr = project.getProperty('PluginClasses').split(',');
 			pluginSrc = project.getProperty('PluginSources');
 			var fwriter = java.io.FileWriter;
 			var writer = java.io.BufferedWriter;
-			var out = new writer(new fwriter(pluginSrc+'/plugins.lst'));
+			var out = new writer(new fwriter('build/plugins.lst'));
 			out.write("#Plug-in classes (extracted from plugin.properties):\n");
 			for (k in arr) {
 				out.write(arr[k].trim()+"\n");
@@ -56,8 +61,36 @@
 	</target>
 
 	<target name="jar" depends="compile, createLstFile">
-		<jar destfile="${PluginName}.jar" basedir="build" includes="**/*">
+		<script language="javascript">
+			load("nashorn:mozilla_compat.js");
+			jarList = project.getProperty("plugin.libs");
+			if (!"".equals(jarList)) {
+				if (project.getProperty("os.name").toLowerCase().contains("windows"))
+	            	libs = jarList.split(";");
+				else
+					libs = jarList.split(":");
+	            for (index in libs) {
+	              unzip = project.createTask("unzip");
+	              unzip.setDest(new java.io.File("build"));
+	              unzip.setSrc(new java.io.File(libs[index]));
+	        	  unzip.perform();
+	            }
+			}
+      	</script>
+
+      	<copy todir="build" overwrite="true">
+			<fileset dir="${PluginSources}" excludes="${exclude-defaults},**/Thumbs.db,**/thumbs.db"
+				includes="${resources.copied}" />
+		</copy>
+
+		<jar destfile="${PluginName}.jar" basedir="build" includes="**/*">			
 		</jar>
+	<copy todir="${NeptusDir}/conf" overwrite="true">
+		<fileset dir="${PluginSources}/conf">
+			<include name="**/*"/>
+		</fileset>
+	</copy>
+
 	</target>
 
 	<target name="deploy" depends="jar">
@@ -82,6 +115,7 @@
 
 	<target name="GenerateEclipseProject">
 		<script language="javascript"><![CDATA[
+			load("nashorn:mozilla_compat.js");
 			importPackage(java.io);
 
 			pluginName = project.getProperty('PluginName');

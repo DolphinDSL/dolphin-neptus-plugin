@@ -1,0 +1,39 @@
+// (1) Configuration
+r = ask 'Radius of operation area? (km)'
+APDL = location (41.18500, -8.70620) ^ r.km
+message APDL
+// (2) Vehicle selection
+UUVs = pick {
+	count 3
+	type 'UUV'
+	//payload 'Sidescan'
+	region APDL
+}
+UAV = pick {
+	type 'UAV'
+	region APDL
+}
+
+// (3) Function yielding UUV task i
+def UUVTask ( i ) {
+	imcPlan('survey' + i) >>
+	action { post ready:i } >>
+	imcPlan {
+	planName 'sk' + i
+	skeeping duration: 600
+	}
+}
+// (4) Execute tasks
+execute UUVs:
+	UUVTask(1) |
+	UUVTask(2) |
+	UUVTask(3) ,
+UAV:
+	allOf {
+		when { consume ready:1 } then imcPlan('rv1')
+		when { consume ready:2 } then imcPlan('rv2')
+		when { consume ready:3 } then imcPlan('rv3')
+	}
+// (5) End
+release UUVs + UAV
+message "Done!"

@@ -1,0 +1,17 @@
+v = pick {
+id 'lauv-noptilus-3'
+}
+
+uav = pick {
+	count 2
+}
+
+p = imcPlan {
+    planName "IMCDSL"
+	speed 1.5, Speed.Units.METERS_PS
+	locate Location.APDL
+	move (-200,0)
+	goTo payload:[[name:'Camera']]
+}
+execute v: p
+release uav

@@ -1,0 +1,12 @@
+// Pick an UUV ---- 38.43461666666666 -8.861177777777778 : Comporta Op Area location
+
+ComportaOParea = location 38.43461, -8.86117
+v = pick { 
+  type 'UUV'
+  //region ComportaOParea, 5.km
+  id 'lauv-noptilus-1'
+}
+
+// Execute IMC Plan designed in Neptus
+t1 = imcPlan 'plan1' 
+execute v:t1

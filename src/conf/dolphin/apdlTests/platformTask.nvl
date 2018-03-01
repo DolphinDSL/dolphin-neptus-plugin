@@ -1,0 +1,22 @@
+// Pick an UUV
+ComportaOpArea = location 38.425711111111106, -8.852072222222223
+v = pick { 
+  type 'UUV'
+  region ComportaOpArea = location 38.425711111111106, -8.852072222222223, 2.km
+  id 'lauv-seacon-1'
+}
+// IMC plan defined programatically
+t2 = imcPlan {
+    planName 'IMC_DSL_Plan'
+    speed 1.5, Speed.Units.METERS_PS
+    locate new Location(Location.toRadians(38.425711111111106),Location.toRadians(-8.852072222222223))
+    move 50,-125
+    goTo()
+    move 0,-50
+    loiter()
+}
+execute v:t2
+
+// Execute IMC Plan designed in Neptus
+//t1 = imcPlan 'Operator_Plan' 
+//execute v:t1

@@ -1,0 +1,7 @@
+
+v1 = pick { id 'lauv-noptilus-1' }
+v2 = pick { id 'lauv-noptilus-2' }
+
+execute  imcPlan('plan1')[v1] >> imcPlan('plan2')[v2]  
+
+            

@@ -1,0 +1,11 @@
+// Pick an UUV
+APDL = location 41.18456, -8.70590
+v = pick { 
+  type 'UUV'
+  region APDL, 2.km
+  id 'lauv-noptilus-1'
+}
+
+// Execute IMC Plan designed in Neptus
+t1 = imcPlan 'Operator_Plan' 
+execute v:t1
