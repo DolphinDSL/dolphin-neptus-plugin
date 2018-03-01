@@ -1,4 +1,4 @@
-﻿# Dolphin Neptus plugin
+﻿# Neptus plugin for Dolphin
 
 
 ## Requirements
