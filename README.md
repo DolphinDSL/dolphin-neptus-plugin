@@ -14,4 +14,7 @@
    * `ant GenerateEclipseProject`
 * After creating your plug-in you can deploy it to Neptus using the *deploy* ant target:
    * `ant deploy`
+* To test the plug-in in Neptus<sup>1</sup> run the command:
+   * `ant test`
 
+<sup>1</sup>  The plug-in must be added to the operators console through the Plugin Manager (`Ctrl + P` or View >> Plugin Manager) look for `Dolphin Runtime Feature` on the list and add it).
