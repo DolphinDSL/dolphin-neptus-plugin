@@ -35,7 +35,7 @@
 	<target name="compile">
 		<delete dir="build"/>
 		<mkdir dir="build"/>
-		<javac classpathref="neptus.libs"
+		<javac includeantruntime="false" classpathref="neptus.libs"
 			srcdir="${PluginSources}"
 			destdir="build"
 			includes="**/*.java"
@@ -83,7 +83,7 @@
 				includes="${resources.copied}" />
 		</copy>
 
-		<jar destfile="${PluginName}.jar" basedir="build" includes="**/*">			
+		<jar destfile="${PluginName}.jar" basedir="build" includes="**/*">
 		</jar>
 	<copy todir="${NeptusDir}/conf" overwrite="true">
 		<fileset dir="${PluginSources}/conf">
@@ -101,6 +101,7 @@
 	<target name="undeploy">
 		<description>Remove previously deployed jar from Neptus plugins dir.</description>
 		<delete file="${NeptusDir}/plugins/${JarFileName}"/>
+		<delete dir="${NeptusDir}/conf/${PluginName}" />
 	</target>
 
 	<target name="clean">
