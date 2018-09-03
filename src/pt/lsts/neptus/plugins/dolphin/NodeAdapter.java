@@ -130,7 +130,7 @@ public class NodeAdapter extends AbstractNode {
 //        stop.setRequestId(IMCSendMessageUtils.getNextRequestId());
 //        stop.setOpStr("STOP");
 //        stop.setType(TYPE.REQUEST);
-//        ImcMsgManager.getManager().sendMessageToSystem(stop, getId()); //TODO use accoustics if return value is false?
+//        ImcMsgManager.getManager().sendMessageToSystem(stop, getId()); 
 
     }
 
