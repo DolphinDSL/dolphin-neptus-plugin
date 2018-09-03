@@ -214,9 +214,13 @@ public class DolphinConsolePanel extends ConsolePanel {
         // Buttons AbstractActions
         Action execAction = new AbstractAction(I18n.text("Execute"),ImageUtils.getScaledIcon("pt/lsts/neptus/plugins/dolphin/images/forward.png", 16, 16)) {
             @Override
-            public void actionPerformed(ActionEvent e) {   
+            public void actionPerformed(ActionEvent e) {
+                if(script!=null) {   
                 FileUtil.saveToFile(script.getAbsolutePath(), editor.getText());
                 NeptusPlatform.getInstance().run(script);
+                }
+                else 
+                    saveAction.actionPerformed(e);
             }
         };
 
