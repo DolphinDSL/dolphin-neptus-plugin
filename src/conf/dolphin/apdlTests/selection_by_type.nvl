@@ -1,9 +1,0 @@
-
-uuv = pick {
-  type   'UUV'
-}
-task = imcPlan 'go_to'
-
-message "Selected $uuv"
-
-execute uuv: task

@@ -1,0 +1,6 @@
+#!/bin/bash
+for file in echo $(ls)
+do
+	NAME=`echo "$file" | cut -d'.' -f1`
+	cp $file "$NAME".dolphin
+done

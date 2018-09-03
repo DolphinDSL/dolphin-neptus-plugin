@@ -37,6 +37,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 
@@ -82,7 +83,7 @@ import pt.lsts.neptus.util.ImageUtils;
  * Neptus Console for Dolphin language (GUI to edit and run programs)
  */
 @PluginDescription(name = "Dolphin Runtime Feature",description = "Task orchestration language for autonomous vehicle networks",icon="pt/lsts/neptus/plugins/dolphin/images/dolphin.png")
-@Popup(pos = Popup.POSITION.BOTTOM_RIGHT, width=600, height=500)
+@Popup(pos = Popup.POSITION.BOTTOM_RIGHT,accelerator = KeyEvent.VK_D, width=600, height=500)
 @SuppressWarnings("serial")
 public class DolphinConsolePanel extends ConsolePanel {
 
@@ -142,7 +143,7 @@ public class DolphinConsolePanel extends ConsolePanel {
                 File directory = scriptDir;//new File("conf/dolphin/apdlTests");
                 final JFileChooser fc = new JFileChooser(directory);
                 fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                fc.setFileFilter( new FileNameExtensionFilter("NVL files","nvl"));
+                fc.setFileFilter( new FileNameExtensionFilter("Dolphin files","dolphin"));
                 // Demonstrate "Save" dialog:
                 int rVal = fc.showDialog(DolphinConsolePanel.this,"Save file as...");
                 if (rVal == JFileChooser.APPROVE_OPTION) {
@@ -173,7 +174,7 @@ public class DolphinConsolePanel extends ConsolePanel {
                 File directory = scriptDir;//new File("conf/dolphin/rep17");
                 final JFileChooser fc = new JFileChooser(directory);
                 fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                fc.setFileFilter( new FileNameExtensionFilter("NVL files","nvl"));
+                fc.setFileFilter( new FileNameExtensionFilter("Dolphin files","dolphin"));
                 int returnVal = fc.showOpenDialog(DolphinConsolePanel.this);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     script = fc.getSelectedFile();
