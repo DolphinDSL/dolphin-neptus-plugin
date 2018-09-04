@@ -203,7 +203,7 @@ public class DolphinConsolePanel extends ConsolePanel {
         
         //Output panel
         output = new JTextArea();
-        border = BorderFactory.createTitledBorder("Script Output");
+        border = BorderFactory.createTitledBorder("Script Output\n");
         //output.setBorder(border);
         output.setEditable(false);
         output.setVisible(true);
@@ -216,11 +216,17 @@ public class DolphinConsolePanel extends ConsolePanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(script!=null) {   
-                FileUtil.saveToFile(script.getAbsolutePath(), editor.getText());
-                NeptusPlatform.getInstance().run(script);
+                    FileUtil.saveToFile(script.getAbsolutePath(), editor.getText());
+                    NeptusPlatform.getInstance().run(script);
                 }
-                else 
+                else {
                     saveAction.actionPerformed(e);
+                    if(script!=null)
+                        NeptusPlatform.getInstance().run(script);
+                    else 
+                        displayMessage("Please save script into a file before running it.",null);
+
+                }
             }
         };
 
